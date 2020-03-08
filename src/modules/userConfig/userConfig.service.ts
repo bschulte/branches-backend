@@ -22,6 +22,7 @@ export class UserConfigService extends BaseService<UserConfig> {
     this.logger.silly(
       `Updating user (${userId}) config values to: ${JSON.stringify(values)}`,
     );
+
     await this.update({ userId }, values);
 
     return { success: true };

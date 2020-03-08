@@ -96,32 +96,27 @@ export class EmailService implements OnModuleInit {
     html = html.replace('{{title}}', title);
     html = html.replace('{{text}}', text);
 
-    // Check to see if the user has a @kryptowire address
     // If so, don't send the alert email, since it's likely a placeholder
     // address used by the user instead of their actual email
-    if (
-      !isInternal &&
-      userEmail.endsWith('@kryptowire.com') &&
-      templateName !== 'passwordReset'
-    ) {
+    if (!isInternal && templateName !== 'passwordReset') {
       return true;
     }
 
     try {
       const mailOptions = {
-        from: 'robot@kryptowire.com',
+        from: 'robot@service.com',
         to: isInternal ? emails : userEmail,
         bcc: isInternal ? [] : emails,
         subject,
         html,
         text,
-        attachments: [
-          {
-            filename: 'kryptowire.png',
-            path: join(__dirname, 'emailAssets', 'kryptowire.png'),
-            cid: 'kryptowire_email_logo',
-          },
-        ],
+        // attachments: [
+        //   {
+        //     filename: 'test.png',
+        //     path: join(__dirname, 'emailAssets', 'test.png'),
+        //     cid: 'test_email_logo',
+        //   },
+        // ],
       };
 
       const emailResult = await this.transporter.sendMail(mailOptions);
@@ -138,7 +133,7 @@ export class EmailService implements OnModuleInit {
 
   public onModuleInit() {
     this.logger.silly(`Email module initialized`);
-    if (process.env.NODE_ENV === 'development') {
+    if (this.dotenvService.get('NODE_ENV') === 'development') {
       this.logger.silly('Creating test email account');
       mailer.createTestAccount((err, account) => {
         if (err) {
@@ -177,7 +172,6 @@ export class EmailService implements OnModuleInit {
   }
 
   private async getInternalEmailAlertAddresses() {
-    // Get the internal email addresses to alert Kryptowire about the app completion
     const addresses = this.dotenvService.get('INTERNAL_EMAIL_ADDRESSES');
 
     this.logger.silly(

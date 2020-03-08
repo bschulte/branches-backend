@@ -109,7 +109,7 @@ export class UserService extends BaseService<User> {
     // Create API key
     const apiKey = generateRandomStr(36);
     // Create access code to login
-    const accessCode = generateRandomStr(4);
+    const accessCode = generateRandomStr(4, true);
 
     this.logger.debug(`Creating new user: ${email}`);
 
@@ -157,9 +157,9 @@ export class UserService extends BaseService<User> {
     await this.emailService.sendEmail({
       subject: '[Branches] Account requested',
       title: 'User account requested',
-      templateName: 'emailNewUser',
+      templateName: 'notifyAdminNewUser',
       templateParams: [user.name, user.email],
-      isInternal: false,
+      isInternal: true,
     });
   }
 
@@ -303,7 +303,7 @@ export class UserService extends BaseService<User> {
       templateName: 'passwordChangeNotification',
       templateParams: [],
       userEmail: user.email,
-      subject: 'Kryptowire EMM Portal - Password Reset',
+      subject: 'Password Reset',
       isInternal: false,
       title: 'Password Change',
     });
