@@ -27,8 +27,15 @@ export class User {
   @Field()
   public email: string;
 
+  @Column()
+  @Field()
+  public name: string;
+
   @Column({ select: false })
   public password: string;
+
+  @Column()
+  public accessCode: string;
 
   @CreateDateColumn()
   @Field()
@@ -37,6 +44,9 @@ export class User {
   @Column({ nullable: true })
   @Field()
   public lastLogin: Date;
+
+  @Column({ default: false })
+  public approved: boolean;
 
   @UpdateDateColumn()
   @Field()

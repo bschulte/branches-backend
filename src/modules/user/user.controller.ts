@@ -45,7 +45,12 @@ export class UserController {
   @Get('/verify-auth')
   @UseGuards(AuthGuard)
   public verifyAuth(@Request() req: RequestWithUser) {
-    return this.userService.verifyAuth(req.user);
+    return this.userService.findOne({ id: req.user.id });
+  }
+
+  @Post('/register')
+  public register(@Body('name') name: string, @Body('email') email: string) {
+    return this.userService.registerUser(name, email);
   }
 
   @Put('/change-password')

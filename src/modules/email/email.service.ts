@@ -47,15 +47,24 @@ export class EmailService implements OnModuleInit {
     `;
     },
 
-    emailNewUser: password => {
+    notifyAdminNewUser: (name: string, email: string) => {
       return `
-    An account has been created for you on the <a href="insert_link_here">INSERT NAME HERE</a> <br/>
+      A new user has requested account access
     <br/>
-    Your password is:<br/>
+    Name: ${name}<br/>
     <br/>
-    ${password}<br/>
+    Email: ${email} <br/>
+    <br/>`;
+    },
+
+    emailNewUser: accessCode => {
+      return `
+    An account has been created for you on the <a href="insert_link_here">Branches family tree</a> <br/>
     <br/>
-    After logging in you'll be prompted to change this password.<br/>
+    Your access code is:<br/>
+    <br/>
+    ${accessCode}<br/>
+    <br/>
 `;
     },
   };

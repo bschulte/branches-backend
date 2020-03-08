@@ -14,6 +14,10 @@ export class UserConfig {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
+  @Column({ default: true })
+  @Field()
+  public receiveEmails: boolean;
+
   @Column()
   public userId: string;
 

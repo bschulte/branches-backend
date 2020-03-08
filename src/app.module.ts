@@ -28,7 +28,7 @@ import { SchedulerModule } from './modules/scheduler/scheduler.module';
       imports: [DotenvModule],
       useFactory: async (dotenvService: DotenvService) =>
         ({
-          type: 'mysql',
+          type: 'postgres',
           host: dotenvService.get('DB_HOST'),
           port: parseInt(dotenvService.get('DB_PORT'), 10),
           username: dotenvService.get('DB_USER'),

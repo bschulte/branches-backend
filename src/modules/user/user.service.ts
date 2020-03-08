@@ -103,18 +103,22 @@ export class UserService extends BaseService<User> {
     }
   }
 
-  public async createUser(email: string) {
+  public async createUser(email: string, name: string = '') {
     // Create random password
     const password = generateRandomStr(24);
     // Create API key
     const apiKey = generateRandomStr(36);
+    // Create access code to login
+    const accessCode = generateRandomStr(4);
 
     this.logger.debug(`Creating new user: ${email}`);
 
     const passHash = bcrypt.hashSync(password, 10);
 
     const newUser = this.userRepo.create({
+      name,
       email,
+      accessCode,
       password: passHash,
       apiKey,
       subGroups: [],
@@ -138,7 +142,25 @@ export class UserService extends BaseService<User> {
     // Create default group user access
     await this.groupUserAccess.create({ userId: newUser.id });
 
-    return { successfullyCreatedUser: true, generatedPassword: password };
+    return {
+      successfullyCreatedUser: true,
+      generatedPassword: password,
+      user: newUser,
+    };
+  }
+
+  public async registerUser(name: string, email: string) {
+    this.logger.debug(`Registering new user: ${name}, ${email}`);
+
+    const { user } = await this.createUser(email, name);
+
+    await this.emailService.sendEmail({
+      subject: '[Branches] Account requested',
+      title: 'User account requested',
+      templateName: 'emailNewUser',
+      templateParams: [user.name, user.email],
+      isInternal: false,
+    });
   }
 
   public async changePassword(
