@@ -24,6 +24,11 @@ export class UserController {
     return this.userService.login(email, password, token);
   }
 
+  @Post('/login-with-code')
+  public loginWithCode(@Body('accessCode') accessCode: string) {
+    return this.userService.loginWithCode(accessCode);
+  }
+
   @Post('/request-password-reset')
   public requestPasswordReset(@Body('email') email: string) {
     return this.userService.generatePasswordResetToken(email);

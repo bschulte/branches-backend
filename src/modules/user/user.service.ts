@@ -103,6 +103,24 @@ export class UserService extends BaseService<User> {
     }
   }
 
+  public async loginWithCode(accessCode: string) {
+    const user = await this.findOne({ accessCode });
+
+    if (!user) {
+      throw new UnauthorizedException('Invalid access code');
+    }
+
+    const jwtToken = jwt.sign(
+      { email: user.email },
+      this.dotenvService.get('APP_KEY'),
+      {
+        expiresIn: '1000d',
+      },
+    );
+
+    return { token: jwtToken };
+  }
+
   public async createUser(email: string, name: string = '') {
     // Create random password
     const password = generateRandomStr(24);
