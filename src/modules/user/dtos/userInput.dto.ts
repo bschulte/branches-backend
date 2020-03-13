@@ -5,12 +5,15 @@ export class UserInputDto {
   @Field()
   public id: string;
 
-  @Field()
+  @Field({ nullable: true })
   public group: string;
 
-  @Field(type => [String])
+  @Field(type => [String], { nullable: true })
   public subGroups: string[];
 
-  @Field()
+  @Field({ nullable: true })
   public locked: boolean;
+
+  @Field({ nullable: true })
+  public approved: boolean;
 }

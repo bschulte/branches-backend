@@ -46,6 +46,7 @@ export class User {
   public lastLogin: Date;
 
   @Column({ default: false })
+  @Field()
   public approved: boolean;
 
   @UpdateDateColumn()
