@@ -1,5 +1,5 @@
 import { ClassType } from 'class-transformer/ClassTransformer';
-import { ObjectType, Field, Int } from 'type-graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 
 export function PaginatedResponse<TItem>(TItemClass: ClassType<TItem>): any {
   // `isAbstract` decorator option is mandatory to prevent registering in schema

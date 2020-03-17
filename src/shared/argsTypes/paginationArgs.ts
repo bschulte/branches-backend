@@ -1,4 +1,4 @@
-import { ArgsType, Field, Int } from 'type-graphql';
+import { ArgsType, Field, Int } from '@nestjs/graphql';
 import { Min, IsNumberString, IsNumber } from 'class-validator';
 import { Type } from 'class-transformer';
 

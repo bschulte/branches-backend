@@ -13,7 +13,7 @@ import { UserAccess } from 'src/modules/userAccess/userAccess.entity';
 import { Audit } from '../audit/audit.entity';
 import { LoginRecord } from './loginRecord.entity';
 import { UserConfig } from '../userConfig/userConfig.entity';
-import { ObjectType, Field } from 'type-graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
 import { GroupUserAccess } from '../groupUserAccess/groupUserAccess.entity';
 
 @Entity({ name: 'users' })
