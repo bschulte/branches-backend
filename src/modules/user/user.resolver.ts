@@ -1,10 +1,10 @@
 import {
   Resolver,
   Query,
-  ResolveProperty,
   Parent,
   Args,
   Mutation,
+  ResolveField,
 } from '@nestjs/graphql';
 import { User } from './user.entity';
 import { UserService } from './user.service';
@@ -46,13 +46,13 @@ export class UserResolver {
   }
 
   @UseGuards(AdminGuard)
-  @ResolveProperty(returns => UserAccess)
+  @ResolveField(returns => UserAccess)
   public async access(@Parent() user: User) {
     return this.userAccessService.findOne({ userId: user.id });
   }
 
   // TODO: Restrict group user access
-  @ResolveProperty(returns => GroupUserAccess)
+  @ResolveField(returns => GroupUserAccess)
   public async groupUserAccess(@Parent() user: User) {
     return this.groupUserAccessService.findOne({ userId: user.id });
   }

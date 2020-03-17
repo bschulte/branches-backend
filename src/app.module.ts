@@ -18,6 +18,7 @@ import { GroupAdminModule } from 'src/modules/groupAdmin/groupAdmin.module';
 import { UserConfigModule } from './modules/userConfig/userConfig.module';
 import { DatabaseModule } from './modules/database/database.module';
 import { SchedulerModule } from './modules/scheduler/scheduler.module';
+import { FamilyTreeModule } from './modules/familyTree/familyTree.module';
 
 @Module({
   imports: [
@@ -62,6 +63,7 @@ import { SchedulerModule } from './modules/scheduler/scheduler.module';
     UserConfigModule,
     DatabaseModule,
     SchedulerModule,
+    FamilyTreeModule,
   ],
   providers: [],
 })

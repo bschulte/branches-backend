@@ -9,12 +9,4 @@ import { AuthGuard } from 'src/shared/guards/auth.guard';
 @UseGuards(AuthGuard)
 export class FamilyTreeResolver {
   constructor(private readonly familyTreeService: FamilyTreeService) {}
-
-  @Query(returns => FamilyTree)
-  public async familyTree(
-    @Context('req') { user }: RequestWithUser,
-    @Args('id') id: string,
-  ) {
-    return this.familyTreeService.findOne({ id });
-  }
 }
